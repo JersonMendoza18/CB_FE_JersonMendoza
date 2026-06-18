@@ -1,59 +1,34 @@
-# FinancialAgentFrontend
+# Financial Agent Station (Frontend)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.27.
+This project represents the web user interface designed to simulate a local bank teller or agent terminal. It consumes the distributed REST services exposed by the Spring Boot API.
 
-## Development server
+## 🏗️ UI/UX Design Decisions
 
-To start a local development server, run:
+- **Standalone Components (Modern Angular):** Heavy legacy modules (`NgModules`) were completely avoided. The application features a lightweight, independent standalone component architecture.
+- **Transactional Alignment & Input Hardening (UX/UI Fix):** To prevent data inconsistencies during teller operations, a protected user flow was implemented: the `Account ID` field in the transaction form is strictly configured as **read-only (`[disabled]="true"`)**, forcing it to inherit the context of the active account fetched on screen. This guarantees the operator can only execute deposits or withdrawals on the explicitly validated entity.
+- **Dynamic State Control:** The execution form remains hidden or locked via `*ngIf` until a valid account query succeeds, significantly reducing human operational errors.
+- **Real-Time Error Feedback:** The interface catches structured error payloads from the backend, abstracting complex HTTP rejections into clean, semantic user-facing alert banners (e.g., overdraft or operational limit violations).
 
-```bash
-ng serve
-```
+## 🛠️ Tech Stack
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Angular 18+**
+- **TypeScript**
+- **Native HTML5 / CSS3**
 
-## Code scaffolding
+## 🚀 How to Run the Application
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1. Ensure **Node.js** (LTS version recommended) is installed on your system.
+2. Open a terminal and navigate to the root directory of the frontend project.
+3. Install the framework packages and dependencies by executing:
+   ```bash
+   npm install
+   ```
 
-```bash
-ng generate component component-name
-```
+4. Start the local development server using:
+   ```bash
+   ng serve -o
+   ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The `-o` flag will automatically open your default web browser at http://localhost:4200/.
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+**Important:** Make sure the Backend server is running simultaneously so that network integration and API requests resolve successfully.
