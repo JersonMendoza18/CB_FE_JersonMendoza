@@ -38,27 +38,33 @@
     <div style="flex: 1; background: #f8f9fa; padding: 20px; border-radius: 8px; border: 1px solid #dee2e6;">
       <h3 style="margin-top: 0; color: #002855;">Execute Transaction</h3>
       
-      <div style="margin-bottom: 12px;">
-        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Target Account ID:</label>
-        <input type="number" [(ngModel)]="transactionForm.accountId" placeholder="Target Account ID" style="width: 100%; padding: 8px; box-sizing: border-box;" />
+      <div *ngIf="!account" style="color: #666; font-style: italic; text-align: center; margin-top: 40px;">
+        Please fetch an active account first to execute movements.
       </div>
 
-      <div style="margin-bottom: 12px;">
-        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Operation Type:</label>
-        <select [(ngModel)]="transactionForm.type" style="width: 100%; padding: 8px; box-sizing: border-box;">
-          <option value="DEPOSIT">DEPOSIT</option>
-          <option value="WITHDRAWAL">WITHDRAWAL</option>
-        </select>
-      </div>
+      <div *ngIf="account">
+        <div style="margin-bottom: 12px;">
+          <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #666;">Active Account ID:</label>
+          <input type="number" [(ngModel)]="transactionForm.accountId" [disabled]="true" style="width: 100%; padding: 8px; box-sizing: border-box; background-color: #e9ecef; cursor: not-allowed; border: 1px solid #ced4da; font-weight: bold;" />
+        </div>
 
-      <div style="margin-bottom: 15px;">
-        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Amount ($):</label>
-        <input type="number" [(ngModel)]="transactionForm.amount" min="0.01" step="0.01" style="width: 100%; padding: 8px; box-sizing: border-box;" />
-      </div>
+        <div style="margin-bottom: 12px;">
+          <label style="display: block; margin-bottom: 5px; font-weight: bold;">Operation Type:</label>
+          <select [(ngModel)]="transactionForm.type" style="width: 100%; padding: 8px; box-sizing: border-box;">
+            <option value="DEPOSIT">DEPOSIT</option>
+            <option value="WITHDRAWAL">WITHDRAWAL</option>
+          </select>
+        </div>
 
-      <button (click)="onSubmitTransaction()" style="width: 100%; padding: 10px; background-color: #198754; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
-        Submit Movement
-      </button>
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; margin-bottom: 5px; font-weight: bold;">Amount ($):</label>
+          <input type="number" [(ngModel)]="transactionForm.amount" min="0.01" step="0.01" style="width: 100%; padding: 8px; box-sizing: border-box;" />
+        </div>
+
+        <button (click)="onSubmitTransaction()" style="width: 100%; padding: 10px; background-color: #198754; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
+          Submit Movement
+        </button>
+      </div>
     </div>
 
   </div>
